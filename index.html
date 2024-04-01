@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+	<title>Блокировка кнопки</title>
+</head>
+<body>
+    <div class='container'>
+	<input class='textinp'type="text" id="inputField" placeholder="Поле для ввода текста">
+    <audio id="audio" src="song.mp3"></audio>
+
+	<script>
+let hotkeyPressed = false; // Объявляем переменную hotkeyPressed и устанавливаем ее значение как ложь (false)
+let lockedKey = 'u'; // Объявляем переменную lockedKey и устанавливаем ее значением символ 'u'
+
+const audio = document.getElementById('audio'); // Получаем доступ к элементу audio на веб-странице
+
+// Добавляем прослушиватель для события нажатия клавиши
+document.addEventListener('keydown', function(event) {
+    // Проверяем, были ли нажаты одновременно клавиши Ctrl, Alt и F4
+    if (event.ctrlKey && event.altKey && event.key === "F4") {
+        // Инвертируем значение переменной hotkeyPressed
+        hotkeyPressed = !hotkeyPressed;
+        // Если hotkeyPressed истинно, выводим сообщение о блокировке клавиши 'u' и воспроизводим звук
+        if (hotkeyPressed) {
+            alert('Клавиша "u" заблокирована!');
+            audio.play();
+        } else {
+            // Иначе выводим сообщение о разблокировке клавиши 'u' и воспроизводим звук
+            alert('Клавиша "u" разблокирована!');
+            audio.play(); 
+        }
+    }
+
+    // Если hotkeyPressed равно истине
+    if (hotkeyPressed) {
+        // Проверяем, была ли нажата клавиша, соответствующая значению lockedKey ('u')
+        if (event.key.toLowerCase() === lockedKey) {
+            // Предотвращаем выполнение действия по умолчанию для события нажатия клавиши
+            event.preventDefault();
+            // Выводим сообщение о блокировке клавиши 'u' и запрещении ввода данных, а также воспроизводим звук
+            alert('Клавиша "u" заблокирована! Ввод данных запрещен.');
+            audio.play();
+        }
+    }
+});
+    </script>
+	<div class='text-main'>
+	Press Ctrl+Alt+F4 to lock the "u" button and again to unlock
+	</div>
+
+</div>
+</body>
+</html>
